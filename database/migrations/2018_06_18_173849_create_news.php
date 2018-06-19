@@ -19,6 +19,7 @@ class CreateNews extends Migration
             $table->string('announcement');
             $table->text('content');
             $table->integer('author');
+            $table->boolean('published')->default(false);
             $table->integer('section_news')->index();
             $table->timestamps();
         });
