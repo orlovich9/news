@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNews extends Migration
+class CreateJoinNewsSections extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateNews extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('join_news_sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('announcement');
-            $table->text('content');
-            $table->integer('author');
-            $table->boolean('published')->default(false);
-            $table->dateTime('published_at');
+            $table->integer('news_id')->index();
+            $table->integer('section_id')->index();
         });
     }
 
@@ -31,6 +27,6 @@ class CreateNews extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('join_news_sections');
     }
 }

@@ -17,7 +17,6 @@ class CreateTypeUsers extends Migration
         {
             $table->increments('id');
             $table->string('type_name');
-            $table->integer('type_id')->unique();
             $table->timestamps();
         });
     }

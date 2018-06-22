@@ -16,7 +16,6 @@ class CreateSectionNews extends Migration
         Schema::create('section_news', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('section_id')->unique();
             $table->timestamps();
         });
     }
