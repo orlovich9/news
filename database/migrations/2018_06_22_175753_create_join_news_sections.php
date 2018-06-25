@@ -17,6 +17,7 @@ class CreateJoinNewsSections extends Migration
             $table->increments('id');
             $table->integer('news_id')->index();
             $table->integer('section_id')->index();
+            $table->unique(['news_id', 'section_id']);
         });
     }
 
