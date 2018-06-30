@@ -35,7 +35,7 @@
                                     <input name="password" type="password" placeholder="Пароль">
                                 </div>
                                 <div class="col-lg-6 col-lg-offset-3">
-                                    <input name="" type="checkbox" value="remember"> @lang('auth.remember')
+                                    <input name="remember" type="checkbox" value=""> @lang('auth.remember')
                                 </div>
                                 <div class="col-lg-6 col-lg-offset-3">
                                     <input type="submit" value="Войти">
