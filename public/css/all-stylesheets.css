@@ -10,6 +10,12 @@
 /* Main Stylesheet */
 @import url("stylesheet.css");
 
+/* Normalize */
+@import url("normalize.css");
+
+/* Button style for image download */
+@import url("component.css");
+
 /* Color Stylesheet */
 @import url("oldrose.css");
 

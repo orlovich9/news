@@ -1,77 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+<section class="inner-page-contents">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <section>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                     @endif
+                    <div class="row category-caption register">
+                        <div class="col-lg-12">
+                            <h2>Регистрация</h2>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                    </div>
+                    <div class="row login-form">
+                        <form method="POST" action="{{ route('register') }}" aria-label="Регистрация" enctype="multipart/form-data">
+                            @csrf
+                            <div class="col-lg-6 js">
+                                <input type="file" name="avatar" id="file" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                <label for="file"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Выберите аватарку</span></label>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            <div class="col-lg-6">
+                                <img id="avatar" src="{{ asset('public/images/avatar.png') }}" alt="avatar" />
                             </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+                            <div class="col-lg-6">
+                                <input name="name" type="text" placeholder="Имя" value="{{ old('name') }}">
                             </div>
-                        </div>
-                    </form>
-                </div>
+                            <div class="col-lg-6">
+                                <input name="surname" type="text" placeholder="Фамилия" value="{{ old('surname') }}">
+                            </div>
+                            <div class="col-lg-6">
+                                <input name="login" type="text" placeholder="Логин" value="{{ old('login') }}">
+                            </div>
+                            <div class="col-lg-6">
+                                <input name="email" type="text" placeholder="Email" value="{{ old('email') }}">
+                            </div>
+                            <div class="col-lg-6">
+                                <input name="password" type="password" placeholder="Пароль">
+                            </div>
+                            <div class="col-lg-6">
+                                <input name="password_confirmation" type="password" placeholder="Повторите пароль">
+                            </div>
+                            <div class="col-lg-6 col-lg-offset-3">
+                                <input type="hidden" name="user_type" value="3">
+                                <input type="submit" value="Зарегистрироваться">
+                            </div>
+                        </form>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
-</div>
+</section>
 @endsection

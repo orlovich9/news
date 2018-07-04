@@ -1,13 +1,13 @@
 // JavaScript Document
 
-$(document).ready(function(){				
-	
+$(document).ready(function(){
+
     'use strict';
-	
+
 /************************************************************************************ DROPDOWN MENU STARTS */
-	
-	$('.dropdown-toggle').dropdown();  
-	
+
+	$('.dropdown-toggle').dropdown();
+
 /************************************************************************************ DROPDOWN MENU ENDS */
 
 /************************************************************************************ SIDR OFFCANVASS MENU STARTS */
@@ -16,7 +16,7 @@ $(document).ready(function(){
 		name: 'sidr-main',
 		source: '#navigation'
 	});
-	
+
 /************************************************************************************ SIDR OFFCANVASS MENU STARTS */
 
 /************************************************************************************ SLIDER CAROUSEL STARTS */
@@ -25,7 +25,7 @@ $(document).ready(function(){
 
       	slideSpeed : 300,
       	paginationSpeed : 400,
-      	singleItem : true,        
+      	singleItem : true,
         items: 1,
         itemsDesktop: [1199, 1],
         itemsDesktopSmall: [979, 1],
@@ -47,10 +47,10 @@ $(document).ready(function(){
 
       $(".newsticker").owlCarousel({
 
-      	autoPlay : 3000,      
+      	autoPlay : 3000,
       	slideSpeed : 300,
       	paginationSpeed : 1000,
-      	singleItem : true,        
+      	singleItem : true,
         items: 1,
         itemsDesktop: [1199, 1],
         itemsDesktopSmall: [979, 1],
@@ -71,10 +71,10 @@ $(document).ready(function(){
 /************************************************************************************ FEATURED VIDEO CAROUSEL STARTS */
 
       $(".featured-video-carousel").owlCarousel({
-		autoPlay : 3000,      
+		autoPlay : 3000,
       	slideSpeed : 300,
       	paginationSpeed : 400,
-     	singleItem : true,        
+     	singleItem : true,
         items: 1,
         itemsDesktop: [1199, 1],
         itemsDesktopSmall: [979, 1],
@@ -90,7 +90,7 @@ $(document).ready(function(){
         ],
       });
 
-/************************************************************************************ FEATURED VIDEO CAROUSEL ENDS */	
+/************************************************************************************ FEATURED VIDEO CAROUSEL ENDS */
 
 /************************************************************************************ GALLERY CAROUSEL STARTS */
 
@@ -114,15 +114,15 @@ $(document).ready(function(){
         ],
       });
 
-/************************************************************************************ GALLERY CAROUSEL ENDS */	
+/************************************************************************************ GALLERY CAROUSEL ENDS */
 
 /************************************************************************************ STICKY NAVIGATION STARTS */
 
     $("#navigation").sticky({
         topSpacing: 0
     });
-	
-/************************************************************************************ STICKY NAVIGATION ENDS */	
+
+/************************************************************************************ STICKY NAVIGATION ENDS */
 
 /************************************************************************************ FITVID STARTS */
 
@@ -152,7 +152,14 @@ $(document).ready(function(){
 /************************************************************************************ CURRENT DATE */
 
 var d = new Date();
-document.getElementById("date").innerHTML = d.toDateString();
+var options = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  weekday: 'long',
+  timezone: 'UTC'
+};
+document.getElementById("date").innerHTML = d.toLocaleString('ru', options);
 
 /************************************************************************************ CURRENT ENDS */
 

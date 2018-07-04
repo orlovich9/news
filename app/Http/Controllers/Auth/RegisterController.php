@@ -31,6 +31,12 @@ class RegisterController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Default user_type
+     * @var integer
+     */
+    protected $user_type = 3;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -49,8 +55,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'name' => 'required|string|max:32',
+            'login' => 'required|string|max:32|unique:users',
+            'avatar' => 'image',
+            'email' => 'required|string|email|max:32|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -66,6 +74,10 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'login' => $data['login'],
+            'avatar' => $data['avatar']['size'] ? $data['avatar'] : null,
+            'user_type' => $data['user_type'],
+            'surname' => $data['surname'],
             'password' => Hash::make($data['password']),
         ]);
     }

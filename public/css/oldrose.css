@@ -79,6 +79,12 @@ ul.cats li span {
 .category-caption.login h2 {
 	font-size: 20px;
 }
+.category-caption.register {
+	text-align: center;
+}
+.category-caption.register h2 {
+	font-size: 20px;
+}
 .category-caption span {
 	font-size: 14px;
 	color: #fff;

@@ -864,5 +864,7 @@
 		<script type="text/javascript" src="{{asset('public/js/fitvids/jquery.fitvids.js')}}"></script>
 		<!-- Custom -->
 		<script type="text/javascript" src="{{asset('public/js/custom/custom.js')}}"></script>
+		<!-- Button download image -->
+		<script type="text/javascript" src="{{asset('public/js/jquery.custom-file-input.js')}}"></script>
 	</body>
 </html>

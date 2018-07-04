@@ -2222,4 +2222,10 @@ ul.footer-posts li .info .likes {
 .logo-header {
 	text-align: center;
 }
+input[type="text"], input[type="password"] {
+	outline: none;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+	border: 2px solid #be394a;
+}
 /* ----------------------------------------------------------------------------- MEDIA QURIES ENDS ----- */
