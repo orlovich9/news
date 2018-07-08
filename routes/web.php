@@ -12,5 +12,7 @@
 */
 
 Route::get('/', 'MainController@show')->name('main');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('success', '\App\Http\Controllers\Auth\RegisterController@success')->middleware('success');;
 
 Auth::routes();

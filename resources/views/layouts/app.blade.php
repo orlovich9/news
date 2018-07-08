@@ -29,7 +29,7 @@
 							<ul class="small-nav">
 								@if (Route::has('login'))
 									@auth
-										<li><a href="{{ route('profile') }}">orlovich</a></li>
+										<li><a href="#">{{Auth::user()->login}}</a></li>
 										<li><a href="{{ route('logout') }}">Выйти</a></li>
 									@else
 										<li><a href="{{ route('login') }}">Войти</a></li>
@@ -628,7 +628,7 @@
 									</li>
 									@if (Route::has('login'))
 										@auth
-											<li class="visible-xs"><a href="{{ route('profile') }}">orlovich</a></li>
+											<li class="visible-xs"><a href="#">{{Auth::user()->login}}</a></li>
 										@else
 											<li class="visible-xs"><a href="{{ route('login') }}">LOGIN</a></li>
 											<li class="visible-xs"><a href="{{ route('register') }}">JOIN</a></li>

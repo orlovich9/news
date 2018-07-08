@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/success';
 
     /**
      * Default user_type
@@ -43,7 +43,16 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+
+    }
+
+    /**
+     * Success page after registration
+     * @return \Illuminate\Http\Response
+     */
+    protected function success()
+    {
+        return view('home');
     }
 
     /**
@@ -75,8 +84,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'login' => $data['login'],
-            'avatar' => $data['avatar']['size'] ? $data['avatar'] : null,
-            'user_type' => $data['user_type'],
+            'avatar' => isset($data['avatar']) ? $data['avatar']->path() : '',
+            'user_type' => $this->user_type,
             'surname' => $data['surname'],
             'password' => Hash::make($data['password']),
         ]);
