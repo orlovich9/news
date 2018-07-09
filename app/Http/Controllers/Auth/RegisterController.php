@@ -84,7 +84,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'login' => $data['login'],
-            'avatar' => isset($data['avatar']) ? $data['avatar']->path() : '',
+            'avatar_path' => isset($data['avatar']) ? $data['avatar']->store('uploads/avatar', 'public') : '',
             'user_type' => $this->user_type,
             'surname' => $data['surname'],
             'password' => Hash::make($data['password']),

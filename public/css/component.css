@@ -50,11 +50,11 @@
 @media (max-width: 1199px) {
     .js {
         text-align: none;
-        top: 65px;
+        top: 86px;
     }
     #avatar {
-        max-width: 80px;
-        height: 80px;
+        max-width: 100px;
+        height: 100px;
         margin-top: -60px;
         margin-bottom: 42px;
     }
@@ -65,8 +65,8 @@
         top: 29px;
     }
     #avatar {
-        max-width: 80px;
-        height: 80px;
+        max-width: 100px;
+        height: 100px;
         margin-top: -20px;
         margin-bottom: 10px;
     }

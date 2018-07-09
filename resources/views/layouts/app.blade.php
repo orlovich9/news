@@ -29,8 +29,13 @@
 							<ul class="small-nav">
 								@if (Route::has('login'))
 									@auth
-										<li><a href="#">{{Auth::user()->login}}</a></li>
-										<li><a href="{{ route('logout') }}">Выйти</a></li>
+										<li class="profile">
+											<a href="#">{{Auth::user()->login}}</a>
+											<ul class="profile-menu">
+												<li><i class="fas fa-user"></i><a href="{{ route('profile',['id' => Auth::id()]) }}">Профиль</a></li>
+												<li><i class="fas fa-sign-out-alt"></i><a href="{{ route('logout') }}">Выйти</a></li>
+											</ul>
+										</li>
 									@else
 										<li><a href="{{ route('login') }}">Войти</a></li>
 										<li><a href="{{ route('register') }}">Зарегистрироваться</a></li>
