@@ -22,11 +22,6 @@
                                     <h2>@lang('auth.login')</h2>
                                 </div>
                             </div>
-                            @if ($errors->has('email'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
                             <div class="row login-form">
                                 <div class="col-lg-6 col-lg-offset-3">
                                     <input name="login" type="text" placeholder="Логин" value="{{ old('login') }}">

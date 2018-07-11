@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <section>
+                    <section class="js-profile">
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="row login-form">
-                            <form method="POST" action="{{ route('profile',['id' => Auth::id()]) }}" aria-label="Профиль" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('profile',['id' => Auth::id()]) }}" aria-label="Профиль" id="profile_form" enctype="multipart/form-data">
                                 @csrf
                                 <div class="col-lg-6 js">
                                     <input type="file" name="avatar" id="file" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
@@ -35,22 +35,20 @@
                                     @endif
                                 </div>
                                 <div class="col-lg-6">
-                                    <input name="name" type="text" placeholder="Имя" value="{{ $user_info['name'] }}">
+                                    <label for="profile_name">Имя:</label>
+                                    <input name="name" id="profile_name" type="text" placeholder="Имя" value="{{ $user_info['name'] }}">
                                 </div>
                                 <div class="col-lg-6">
-                                    <input name="surname" type="text" placeholder="Фамилия" value="{{ $user_info['surname'] }}">
+                                    <label for="profile_surname">Фамилия:</label>
+                                    <input name="surname" id="profile_surname" type="text" placeholder="Фамилия" value="{{ $user_info['surname'] }}">
                                 </div>
                                 <div class="col-lg-6">
-                                    <input name="login" type="text" placeholder="Логин" value="{{ $user_info['login'] }}">
+                                    <label for="profile_login">Логин:</label>
+                                    <input name="login" type="text" id="profile_login" placeholder="Логин" value="{{ $user_info['login'] }}">
                                 </div>
                                 <div class="col-lg-6">
-                                    <input name="email" type="text" placeholder="Email" value="{{ $user_info['email'] }}">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input name="password" type="password" placeholder="Пароль">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input name="password_confirmation" type="password" placeholder="Повторите пароль">
+                                    <label for="profile_email">Email:</label>
+                                    <input name="email" type="text" id="profile_email" placeholder="Email" value="{{ $user_info['email'] }}">
                                 </div>
                                 <div class="col-lg-6 col-lg-offset-3">
                                     <input type="submit" value="Изменить данные">
@@ -62,4 +60,45 @@
             </div>
         </div>
     </section>
+@endsection
+@section('page-script')
+    <script>
+        $(document).on('ready', function() {
+
+            Array.prototype.diff = function(a) {
+                return this.filter(function(i) {return a.indexOf(i) < 0;});
+            };
+
+            var current_data = [];
+
+            $('#profile_form input').each(function() {
+                current_data.push($(this).val());
+            });
+
+            $('#profile_form').on('submit', function(e) {
+                e.preventDefault();
+                var update_data = [];
+               $('#profile_form input').each(function() {
+                   update_data.push($(this).val());
+               });
+
+               if (update_data.diff(current_data).length == 0) {
+                   $('.js-profile').prepend('<div class="alert alert-danger"><ul><li>Вы не изменили данные.</li></ul></div>')
+               } else {
+                   $('.js-profile .alert-danger').remove();
+                   update_data = $(this).serializeArray();
+                   $.ajax({
+                       type: "post",
+                       url: "{{ route('profile',['id' => Auth::id()]) }}",
+                       data: update_data,
+                       success: function(response){
+                           alert(response);
+                       }
+                   });
+               }
+
+            });
+        });
+
+    </script>
 @endsection

@@ -633,7 +633,7 @@
 									</li>
 									@if (Route::has('login'))
 										@auth
-											<li class="visible-xs"><a href="#">{{Auth::user()->login}}</a></li>
+											<li class="visible-xs"><a href="{{ route('profile',['id' => Auth::id()]) }}">{{Auth::user()->login}}</a></li>
 										@else
 											<li class="visible-xs"><a href="{{ route('login') }}">LOGIN</a></li>
 											<li class="visible-xs"><a href="{{ route('register') }}">JOIN</a></li>
@@ -871,5 +871,13 @@
 		<script type="text/javascript" src="{{asset('public/js/custom/custom.js')}}"></script>
 		<!-- Button download image -->
 		<script type="text/javascript" src="{{asset('public/js/jquery.custom-file-input.js')}}"></script>
+		<script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+		</script>
+		@yield('page-script')
 	</body>
 </html>

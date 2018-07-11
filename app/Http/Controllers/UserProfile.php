@@ -29,4 +29,16 @@ class UserProfile extends Controller
         return view('profile', ['user_info' => $arUserInfo]);
     }
 
+    /**
+     * Update profile data
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        return 1;
+//        return view('profile');
+    }
+
 }
