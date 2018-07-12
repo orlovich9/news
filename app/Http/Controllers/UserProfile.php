@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\Profile;
 use Illuminate\Support\Facades\Storage;
 
 class UserProfile extends Controller
@@ -35,7 +36,7 @@ class UserProfile extends Controller
      * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Profile $request, $id)
     {
         return 1;
 //        return view('profile');

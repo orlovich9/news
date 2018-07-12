@@ -6,15 +6,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <section class="js-profile">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        <div class="alert alert-danger hidden">
+                            <ul>
+                            </ul>
+                        </div>
+                        <div class="alert alert-success hidden"></div>
                         <div class="row category-caption register">
                             <div class="col-lg-12">
                                 <h2>Профиль</h2>
@@ -63,42 +59,52 @@
 @endsection
 @section('page-script')
     <script>
-        $(document).on('ready', function() {
+        $('#profile_form').on('submit', function(e) {
 
-            Array.prototype.diff = function(a) {
-                return this.filter(function(i) {return a.indexOf(i) < 0;});
-            };
+           e.preventDefault();
 
-            var current_data = [];
+           var update_data = new FormData(this);
 
-            $('#profile_form input').each(function() {
-                current_data.push($(this).val());
-            });
-
-            $('#profile_form').on('submit', function(e) {
-                e.preventDefault();
-                var update_data = [];
-               $('#profile_form input').each(function() {
-                   update_data.push($(this).val());
-               });
-
-               if (update_data.diff(current_data).length == 0) {
-                   $('.js-profile').prepend('<div class="alert alert-danger"><ul><li>Вы не изменили данные.</li></ul></div>')
-               } else {
-                   $('.js-profile .alert-danger').remove();
-                   update_data = $(this).serializeArray();
-                   $.ajax({
-                       type: "post",
-                       url: "{{ route('profile',['id' => Auth::id()]) }}",
-                       data: update_data,
-                       success: function(response){
-                           alert(response);
+           $.ajax({
+               type: "post",
+               url: $(this).attr('action'),
+               data: update_data,
+               dataType: 'json',
+               contentType: false,
+               processData: false,
+               success : function (success) {
+                   console.log(success);
+                   $('.js-profile .alert-danger').addClass('hidden');
+                   $('.js-profile .alert-success').text('Данные успешно изменены');
+                   $('.js-profile .alert-success').removeClass('hidden');
+               },
+               error: function(error) {
+                   if(error.status === 422) {
+                       if ($('.js-profile .alert-danger ul li').length) {
+                           $('.js-profile .alert-danger ul li').each(function(idx,el) {
+                              $(el).remove();
+                           });
                        }
-                   });
+                       $.each(error.responseJSON, function (key, value) {
+                           for (key in value) {
+                               if ($.isArray(value[key])) {
+                                   $('.js-profile .alert-danger ul').append("<li>" + value[key][0] + "</li>");
+                               }
+                           }
+                       });
+                       $('.js-profile .alert-success').addClass('hidden');
+                       $('.js-profile .alert-danger').removeClass('hidden');
+                   } else if (error.status === 429){
+                       $('.js-profile .alert-success').addClass('hidden');
+                       $('.js-profile .alert-danger ul').html("<li>Слишком много запросов к серверу. Повторите запрос через 60 секунд.</li>")
+                       $('.js-profile .alert-danger').removeClass('hidden');
+                   } else {
+                       $('.js-profile .alert-success').addClass('hidden');
+                       $('.js-profile .alert-danger ul').html("<li>Неккоректные данные.Пожалуйста, попробуйте еще раз.</li>")
+                       $('.js-profile .alert-danger').removeClass('hidden');
+                   }
                }
-
-            });
+           });
         });
-
     </script>
 @endsection

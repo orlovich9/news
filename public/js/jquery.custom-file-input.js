@@ -40,6 +40,7 @@ function readURL(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
+        	console.log(input.files[0].name);
             $('#avatar').attr('src', e.target.result);
         }
 
