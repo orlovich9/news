@@ -72,11 +72,12 @@
                dataType: 'json',
                contentType: false,
                processData: false,
-               success : function (success) {
-                   console.log(success);
-                   $('.js-profile .alert-danger').addClass('hidden');
-                   $('.js-profile .alert-success').text('Данные успешно изменены');
-                   $('.js-profile .alert-success').removeClass('hidden');
+               success : function (response) {
+                   if (response) {
+                       $('.js-profile .alert-danger').addClass('hidden');
+                       $('.js-profile .alert-success').text('Данные успешно изменены');
+                       $('.js-profile .alert-success').removeClass('hidden');
+                   }
                },
                error: function(error) {
                    if(error.status === 422) {
@@ -100,7 +101,7 @@
                        $('.js-profile .alert-danger').removeClass('hidden');
                    } else {
                        $('.js-profile .alert-success').addClass('hidden');
-                       $('.js-profile .alert-danger ul').html("<li>Неккоректные данные.Пожалуйста, попробуйте еще раз.</li>")
+                       $('.js-profile .alert-danger ul').html("<li>Неккоректные данные. Пожалуйста, попробуйте еще раз.</li>")
                        $('.js-profile .alert-danger').removeClass('hidden');
                    }
                }

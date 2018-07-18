@@ -38,8 +38,35 @@ class UserProfile extends Controller
      */
     public function update(Profile $request, $id)
     {
-        return 1;
-//        return view('profile');
+        $arUpdateData = [];
+
+        if ($request->name)
+        {
+            $arUpdateData['name'] = $request->name;
+        }
+
+        if ($request->surname)
+        {
+            $arUpdateData['surname'] = $request->surname;
+        }
+
+        if ($request->login)
+        {
+            $arUpdateData['login'] = $request->login;
+        }
+
+        if ($request->email)
+        {
+            $arUpdateData['email'] = $request->email;
+        }
+
+        if ($request->avatar)
+        {
+            $arUpdateData['avatar_path'] = $request->avatar->store('uploads/avatar', 'public');
+        }
+
+        return User::where('id', $id)->update($arUpdateData);
+
     }
 
 }
