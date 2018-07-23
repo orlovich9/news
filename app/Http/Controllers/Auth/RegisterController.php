@@ -66,9 +66,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:32',
             'login' => 'required|string|max:32|unique:users',
-            'avatar' => 'image',
             'email' => 'required|string|email|max:32|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6|confirmed'
         ]);
     }
 
@@ -84,7 +83,6 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'login' => $data['login'],
-            'avatar_path' => isset($data['avatar']) ? $data['avatar']->store('uploads/avatar', 'public') : '',
             'user_type' => $this->user_type,
             'surname' => $data['surname'],
             'password' => Hash::make($data['password']),
