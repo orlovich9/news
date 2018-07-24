@@ -17,4 +17,9 @@ Route::get('success', '\App\Http\Controllers\Auth\RegisterController@success')->
 Route::get('profile/{id}', 'UserProfile@show')->name('profile')->middleware('is_current_user');
 Route::post('profile/{id}', 'UserProfile@update')->middleware('throttle:5');
 
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::get('/', 'MainController@show')->middleware('is_auth');
+    Route::post('login', 'Auth\LoginController@login')->name('admin.login');
+});
+
 Auth::routes();
