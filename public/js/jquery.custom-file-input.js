@@ -37,11 +37,16 @@
 
 function readURL(input) {
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        var reader = new FileReader(),
+         	file = input.files[0].name,
+         	arFiles = ['jpg', 'jpeg', 'svg', 'png', 'bmp', 'gif'];
 
         reader.onload = function (e) {
-        	console.log(input.files[0].name);
-            $('#avatar').attr('src', e.target.result);
+        	if (arFiles.indexOf(file.split('.')[1]) >= 0) {
+	            $('#avatar').attr('src', e.target.result);
+        	} else {
+        		$('#avatar').attr('src', '/news/public/images/avatar.png');
+        	}
         }
 
         reader.readAsDataURL(input.files[0]);
