@@ -36,12 +36,7 @@
                     <!-- Login Block -->
                     <div class="block block-themed animated fadeIn">
                         <div class="block-header bg-primary">
-                            <ul class="block-options">
-                                <li>
-                                    <a href="base_pages_reminder.html">@lang('login.forgot_password')</a>
-                                </li>
-                            </ul>
-                            <h3 class="block-title">@lang('login.login')</h3>
+                            <h3 class="block-title">@lang('login.auth')</h3>
                         </div>
                         <div class="block-content block-content-full block-content-narrow">
                             @if ($errors->any())
@@ -67,7 +62,7 @@
                                     <div class="col-xs-12">
                                         <div class="form-material form-material-primary floating">
                                             <input class="form-control" type="text" id="login-username" name="login">
-                                            <label for="login-username">Логин</label>
+                                            <label for="login-username">@lang('login.login')</label>
                                         </div>
                                     </div>
                                 </div>
@@ -75,20 +70,20 @@
                                     <div class="col-xs-12">
                                         <div class="form-material form-material-primary floating">
                                             <input class="form-control" type="password" id="login-password" name="password">
-                                            <label for="login-password">Пароль</label>
+                                            <label for="login-password">@lang('login.password')</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <label class="css-input switch switch-sm switch-primary">
-                                            <input type="checkbox" id="login-remember-me" name="login-remember-me"><span></span> @lang('auth.remember')
+                                            <input type="checkbox" id="login-remember-me" name="remember"><span></span> @lang('auth.remember')
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <button class="btn btn-block btn-primary" type="submit"><i class="si si-login pull-right"></i> @lang('login.login')</button>
+                                        <button class="btn btn-block btn-primary" type="submit"><i class="si si-login pull-right"></i> @lang('login.come_in')</button>
                                     </div>
                                 </div>
                             </form>

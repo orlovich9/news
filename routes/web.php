@@ -18,8 +18,9 @@ Route::get('profile/{id}', 'UserProfile@show')->name('profile')->middleware('is_
 Route::post('profile/{id}', 'UserProfile@update')->middleware('throttle:5');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::get('/', 'MainController@show')->middleware('is_auth');
+    Route::get('/', 'MainController@show')->middleware('is_auth')->name('admin.main');
     Route::post('login', 'Auth\LoginController@login')->name('admin.login');
+    Route::get('menu', 'MenuController@show')->name('admin.menu');
 });
 
 Auth::routes();

@@ -46,7 +46,7 @@ class MainController extends Controller
      */
     public function show()
     {
-        var_dump(1);
+        return view('admin.index');
     }
 
     /**
