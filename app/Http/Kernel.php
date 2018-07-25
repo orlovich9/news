@@ -62,5 +62,6 @@ class Kernel extends HttpKernel
         'success' => \App\Http\Middleware\Success::class,
         'is_current_user' => \App\Http\Middleware\IsCurrentUser::class,
         'is_auth' => \App\Http\Middleware\IsAuth::class,
+        'lock' => \App\Http\Middleware\LockScreen::class,
     ];
 }

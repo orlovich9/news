@@ -52,41 +52,6 @@
                             <button class="btn btn-link text-gray pull-right hidden-md hidden-lg" type="button" data-toggle="layout" data-action="sidebar_close">
                                 <i class="fa fa-times"></i>
                             </button>
-                            <!-- Themes functionality initialized in App() -> uiHandleTheme() -->
-                            <div class="btn-group pull-right">
-                                <ul class="dropdown-menu dropdown-menu-right font-s13 sidebar-mini-hide">
-                                    <li>
-                                        <a data-toggle="theme" data-theme="default" tabindex="-1" href="javascript:void(0)">
-                                            <i class="fa fa-circle text-default pull-right"></i> <span class="font-w600">Default</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="theme" data-theme="assets/css/themes/amethyst.min.css" tabindex="-1" href="javascript:void(0)">
-                                            <i class="fa fa-circle text-amethyst pull-right"></i> <span class="font-w600">Amethyst</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="theme" data-theme="assets/css/themes/city.min.css" tabindex="-1" href="javascript:void(0)">
-                                            <i class="fa fa-circle text-city pull-right"></i> <span class="font-w600">City</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="theme" data-theme="assets/css/themes/flat.min.css" tabindex="-1" href="javascript:void(0)">
-                                            <i class="fa fa-circle text-flat pull-right"></i> <span class="font-w600">Flat</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="theme" data-theme="assets/css/themes/modern.min.css" tabindex="-1" href="javascript:void(0)">
-                                            <i class="fa fa-circle text-modern pull-right"></i> <span class="font-w600">Modern</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="theme" data-theme="assets/css/themes/smooth.min.css" tabindex="-1" href="javascript:void(0)">
-                                            <i class="fa fa-circle text-smooth pull-right"></i> <span class="font-w600">Smooth</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                             <a class="h5 text-white" href="index.html">
                                 <i class="fa fa-circle-o-notch text-primary"></i> <span class="h4 font-w600 sidebar-mini-hide">ne</span>
                             </a>
@@ -123,7 +88,7 @@
                     <li>
                         <div class="btn-group">
                             <button class="btn btn-default btn-image dropdown-toggle" data-toggle="dropdown" type="button">
-                                <img src="{{ asset('public/images/avatar.jpg') }}" alt="Avatar">
+                                <img src="{{Auth::user()->avatar_path ? asset('public/storage/'. Auth::user()->avatar_path) : asset('public/images/avatar.jpg') }}" alt="Avatar">
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
@@ -146,15 +111,14 @@
                                     </a>
                                 </li>
                                 <li class="divider"></li>
-                                <li class="dropdown-header">Actions</li>
                                 <li>
-                                    <a tabindex="-1" href="base_pages_lock.html">
-                                        <i class="si si-lock pull-right"></i>Lock Account
+                                    <a tabindex="-1" href="{{route('admin.lock')}}">
+                                        <i class="si si-lock pull-right"></i>Заблокировать
                                     </a>
                                 </li>
                                 <li>
-                                    <a tabindex="-1" href="base_pages_login.html">
-                                        <i class="si si-logout pull-right"></i>Log out
+                                    <a tabindex="-1" href="{{route('logout')}}">
+                                        <i class="si si-logout pull-right"></i>Выйти
                                     </a>
                                 </li>
                             </ul>
@@ -201,8 +165,7 @@
                 <!-- Page Header -->
                 <div class="content bg-image overflow-hidden" style="background-image: url('{{ asset('public/images/photo3@2x.jpg') }}');">
                     <div class="push-50-t push-15">
-                        <h1 class="h2 text-white animated zoomIn">Рабочий стол</h1>
-                        <h2 class="h5 text-white-op animated zoomIn">Добро пожаловать Администратор</h2>
+                        <h1 class="h2 text-white-op animated zoomIn">Добро пожаловать {{Auth::user()->name}}</h1>
                     </div>
                 </div>
                 <!-- END Page Header -->
