@@ -2266,4 +2266,43 @@ input[type="text"]:focus, input[type="password"]:focus {
 .fa-sign-out-alt {
 	padding-right: 3px;
 }
+#remember_me {
+	display: none;
+}
+label:hover {
+	cursor: pointer;
+}
+.remember_me:before {
+	content: '';
+	position: relative;
+	display: inline-block;
+	border: 1px solid #be394a;
+	width: 16px;
+	height: 16px;
+	top: 3px;
+	margin-right: 5px;
+}
+#remember_me:checked + .remember_me:before {
+	content: '';
+	position: relative;
+	display: inline-block;
+	border: 1px solid #be394a;
+	width: 16px;
+	height: 16px;
+	top: 3px;
+	margin-right: 5px;
+	background: #be394a;
+}
+#remember_me:checked + .remember_me:after {
+	content: '';
+	display: inline-block;
+	position: absolute;
+	left: 21px;
+	top: 5px;
+	width: 5px;
+	height: 10px;
+	border: solid #ffffff;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+}
 /* ----------------------------------------------------------------------------- MEDIA QURIES ENDS ----- */

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -29,12 +30,6 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/success';
-
-    /**
-     * Default user_type
-     * @var integer
-     */
-    protected $user_type = 3;
 
     /**
      * Create a new controller instance.
@@ -79,13 +74,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'login' => $data['login'],
-            'user_type' => $this->user_type,
             'surname' => $data['surname'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if ($user->id)
+        {
+            DB::table('join_users_user_types')->insert(
+                ['user_id' => $user->id, 'user_type' => null]
+            );
+
+            return $user;
+        }
     }
 }

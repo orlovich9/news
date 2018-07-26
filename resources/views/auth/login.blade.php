@@ -15,7 +15,7 @@
                                 </ul>
                             </div>
                          @endif
-                        <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                        <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="row category-caption login">
                                 <div class="col-lg-12">
@@ -30,7 +30,8 @@
                                     <input name="password" type="password" placeholder="Пароль">
                                 </div>
                                 <div class="col-lg-6 col-lg-offset-3">
-                                    <input name="remember" type="checkbox" value=""> @lang('auth.remember')
+                                    <input name="remember" id="remember_me" type="checkbox" value="">
+                                    <label for="remember_me" class="remember_me" style="font-weight: 500;">@lang('auth.remember')</label>
                                 </div>
                                 <div class="col-lg-6 col-lg-offset-3">
                                     <input type="submit" value="Войти">

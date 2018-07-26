@@ -23,7 +23,7 @@ class UserProfile extends Controller
             "name" => $user->first()->name,
             "surname" => $user->first()->surname,
             "login" => $user->first()->login,
-            "avatar" => asset('public/storage/'.$user->first()->avatar_path),
+            "avatar" => $user->first()->avatar_path ? asset('public/storage/'.$user->first()->avatar_path) : '',
             "email" => $user->first()->email
         ];
 

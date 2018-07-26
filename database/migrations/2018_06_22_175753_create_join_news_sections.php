@@ -15,8 +15,10 @@ class CreateJoinNewsSections extends Migration
     {
         Schema::create('join_news_sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('news_id')->index();
-            $table->integer('section_id')->index();
+            $table->unsignedInteger('news_id')->index();
+            $table->foreign('news_id')->references('id')->on('news');
+            $table->unsignedInteger('section_id')->index();
+            $table->foreign('section_id')->references('id')->on('section_news');
             $table->unique(['news_id', 'section_id']);
         });
     }
