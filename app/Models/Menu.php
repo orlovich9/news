@@ -17,6 +17,15 @@ class Menu extends Model
     protected $table = 'menu';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title', 'parent_id', 'sort'
+    ];
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array
@@ -25,4 +34,5 @@ class Menu extends Model
     {
         return [ 'slug' => [ 'source' => 'title' ]];
     }
+
 }

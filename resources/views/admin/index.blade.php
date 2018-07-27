@@ -52,8 +52,9 @@
                             <button class="btn btn-link text-gray pull-right hidden-md hidden-lg" type="button" data-toggle="layout" data-action="sidebar_close">
                                 <i class="fa fa-times"></i>
                             </button>
-                            <a class="h5 text-white" href="index.html">
-                                <i class="fa fa-circle-o-notch text-primary"></i> <span class="h4 font-w600 sidebar-mini-hide">ne</span>
+                            <a class="h5 text-white" href="{{route('admin.main')}}">
+                                {{--<i class="fa fa-circle-o-notch text-primary"></i> <span class="h4 font-w600 sidebar-mini-hide">ne</span>--}}
+                                <img src="{{asset('public/images/logo2.png')}}" alt="" style="height: 35px;">
                             </a>
                         </div>
                         <!-- END Side Header -->

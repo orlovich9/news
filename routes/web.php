@@ -20,8 +20,9 @@ Route::post('profile/{id}', 'UserProfile@update')->middleware('throttle:5');
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/', 'MainController@show')->middleware('is_auth')->name('admin.main');
     Route::post('login', 'Auth\LoginController@login')->name('admin.login');
-    Route::get('menu', 'MenuController@show')->name('admin.menu');
     Route::get('lock', 'MainController@showLock')->name('admin.lock')->middleware('lock');
+    Route::get('menu', 'MenuController@show')->name('admin.menu');
+    Route::post('menu', 'MenuController@createOrUpdateMenu');
 });
 
 Auth::routes();

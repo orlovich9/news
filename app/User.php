@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get user types
+     */
+    public function getUserTypes()
+    {
+        return $this->hasMany('App\Models\Join_Users_UserTypes');
+    }
 }

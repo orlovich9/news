@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class IsAuth
 {
@@ -16,7 +17,15 @@ class IsAuth
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() || Auth::user()->user_type != $this->getAdminUserType())
+        $user_types = User::where('id',Auth::id())->first()->getUserTypes;
+        $arUserTypes = [];
+
+        foreach ($user_types as $type)
+        {
+            $arUserTypes[] = $type->user_type;
+        }
+
+        if (!Auth::check() || !in_array($this->getAdminUserType(), $arUserTypes))
         {
             return response(view('admin.login'));
         }
