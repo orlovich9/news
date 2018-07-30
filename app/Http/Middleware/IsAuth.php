@@ -17,6 +17,11 @@ class IsAuth
      */
     public function handle($request, Closure $next)
     {
+        if (!Auth::check())
+        {
+            return response(view('admin.login'));
+        }
+
         $user_types = User::where('id',Auth::id())->first()->getUserTypes;
         $arUserTypes = [];
 
@@ -25,9 +30,9 @@ class IsAuth
             $arUserTypes[] = $type->user_type;
         }
 
-        if (!Auth::check() || !in_array($this->getAdminUserType(), $arUserTypes))
+        if (!in_array($this->getAdminUserType(), $arUserTypes))
         {
-            return response(view('admin.login'));
+            return redirect()->route('main');
         }
 
         return $next($request);

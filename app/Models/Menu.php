@@ -35,4 +35,36 @@ class Menu extends Model
         return [ 'slug' => [ 'source' => 'title' ]];
     }
 
+    /**
+     * Get Menu Items
+     * @return array
+     */
+    public function getMenuItems()
+    {
+        $items = self::all();
+        $arTitles = [];
+        $arParents = [];
+
+        foreach ($items as $item)
+        {
+            $id = $item->id;
+            $newItems = $items->where('id', '!=' , $id);
+
+            foreach ($newItems as $newItem)
+            {
+                $arTitles[$id][$newItem->id] = $newItem->title;
+            }
+
+            if ($item->parent_id)
+            {
+                $newItems = $items->first(function($value, $key) use ($item) {
+                    return $value->id == $item->parent_id;
+                });
+                $arParents[$item->id] = [$newItems->first()->id => $newItems->first()->title];
+            }
+        }
+
+        return ['items' => $items, 'parents' => $arTitles, 'parent_title' => $arParents];
+    }
+
 }

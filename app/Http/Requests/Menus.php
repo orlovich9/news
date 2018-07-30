@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Menu extends FormRequest
+class Menus extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class Menu extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string'
+            'title' => 'required'
         ];
     }
 
@@ -37,11 +37,7 @@ class Menu extends FormRequest
     {
         return [
 
-            'required'             => 'Поле :attribute обязательно для заполнения.',
-            'string'               => 'Поле :attribute должно быть строкой.',
-            'attributes' => [
-                'title' => 'Заголовок'
-            ],
+            'required' => 'Заголовок обязателен для заполнения.'
 
         ];
     }
