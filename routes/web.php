@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('menu', 'MenuController@show')->name('admin.menu');
     Route::post('menu', 'MenuController@createOrUpdateMenu');
     Route::post('menu-delete', 'MenuController@deleteMenuItem');
+    Route::get('users', 'UsersController@show')->name('admin.users');
 });
 
 Auth::routes();

@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="{{ asset('public/css/admin/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/admin/slick-theme.min.css') }}">
 
-    @if (substr(strrchr(url()->current(), "/"), 1) == 'menu')
+    <!-- Styles for menu and users pages -->
+    @if (substr(strrchr(url()->current(), "/"), 1) == 'menu' || substr(strrchr(url()->current(), "/"), 1) == 'users')
         <link rel="stylesheet" href="{{ asset('public/css/admin/jquery.dataTables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('public/css/admin/sweetalert2.min.css') }}">
     @endif
@@ -68,9 +69,16 @@
                                 </li>
                                 <li class="nav-main-heading"><span class="sidebar-mini-hide">Настройки контента</span></li>
                                 <li>
-                                    <a class="nav-submenu-menu {{substr(strrchr(url()->current(), "/"), 1) == 'menu' ? 'active' : ''}}" href="{{route('admin.menu')}}">
+                                    <a class="nav-submenu-menu {{substr(strrchr(url()->current(), "/"), 1) == 'menu' ? 'active' : ''}}" href="{{ route('admin.menu') }}">
                                         <i class="si si-puzzle"></i>
                                         <span class="sidebar-mini-hide">Меню</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-heading"><span class="sidebar-mini-hide">Настройки сайта</span></li>
+                                <li>
+                                    <a class="nav-submenu-menu {{substr(strrchr(url()->current(), "/"), 1) == 'users' ? 'active' : ''}}" href="{{ route('admin.users') }}">
+                                        <i class="si si-user"></i>
+                                        <span class="sidebar-mini-hide">Пользователи</span>
                                     </a>
                                 </li>
                             </ul>
