@@ -46,4 +46,18 @@ class MenuController extends Controller
         return redirect()->route('admin.menu')->with('status', 'Данные сохранены.');
     }
 
+    /**
+     * Delete Menu Item
+     * @param Request $request
+     * @return string
+     */
+    public function deleteMenuItem(Request $request)
+    {
+        if ($request->id)
+        {
+            $result = Menu::destroy($request->id);
+            return $result;
+        }
+    }
+
 }

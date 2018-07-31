@@ -60,7 +60,11 @@ class Menu extends Model
                 $newItems = $items->first(function($value, $key) use ($item) {
                     return $value->id == $item->parent_id;
                 });
-                $arParents[$item->id] = [$newItems->first()->id => $newItems->first()->title];
+
+                if ($newItems)
+                {
+                    $arParents[$item->id] = [$newItems->id => $newItems->title];
+                }
             }
         }
 

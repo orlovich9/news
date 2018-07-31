@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('lock', 'MainController@showLock')->name('admin.lock')->middleware('lock');
     Route::get('menu', 'MenuController@show')->name('admin.menu');
     Route::post('menu', 'MenuController@createOrUpdateMenu');
+    Route::post('menu-delete', 'MenuController@deleteMenuItem');
 });
 
 Auth::routes();

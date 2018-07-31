@@ -18,8 +18,7 @@
             </div>
         @endif
         <div class="block-content">
-            <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
-            <form action="{{route('admin.menu')}}" method="post" class="js-form-menu">
+            <form action="{{ route('admin.menu') }}" method="post" class="js-form-menu">
                 @csrf
                 <table class="table table-bordered table-striped js-dataTable-full" style="width: 100%;">
                     <thead>
@@ -34,11 +33,11 @@
                     </thead>
                     <tbody>
                         @foreach ($items as $item)
-                            <tr>
-                                <td class="text-center item-id">{{$item->id}}<input type="hidden" name="id[]" value="{{$item->id}}"></td>
+                            <tr data-id="{{ $item->id }}">
+                                <td class="text-center item-id">{{ $item->id }}<input type="hidden" name="id[]" value="{{ $item->id }}"></td>
                                 <td class="font-w600">
-                                    <input class="js-input hidden" type="text" name="title[]" value="{{$item->title}}">
-                                    <span>{{$item->title}}</span>
+                                    <input class="js-input hidden" type="text" name="title[]" value="{{ $item->title }}">
+                                    <span>{{ $item->title }}</span>
                                 </td>
                                 <td>
                                     @foreach ($parents as $id => $parent)
@@ -50,15 +49,14 @@
                                                             @php
                                                                 $parent_id = key($arValue);
                                                             @endphp
-                                                            <option value="{{key($arValue)}}">{{$arValue[key($arValue)]}}</option>
+                                                            <option value="{{ key($arValue) }}">{{ $arValue[key($arValue)] }}</option>
                                                         @endif
                                                     @endforeach
-                                                @else
-                                                    <option value="">Нет родителя</option>
                                                 @endif
+                                                <option value="">Нет родителя</option>
                                                 @foreach ($parent as $id => $title)
                                                     @if (!isset($parent_id) || $parent_id != $id)
-                                                        <option value="{{$id}}">{{$title}}</option>
+                                                        <option value="{{ $id }}">{{ $title }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -66,13 +64,13 @@
                                     @endforeach
                                     @foreach ($parent_title as $id => $arValue)
                                         @if ($id == $item->id)
-                                            <span>{{$arValue[key($arValue)]}}</span>
+                                            <span>{{ $arValue[key($arValue)] }}</span>
                                         @endif
                                     @endforeach
                                 </td>
                                 <td>
-                                    <input class="js-input hidden" type="text" name="sort[]" value="{{$item->sort}}">
-                                    <span>{{$item->sort}}</span>
+                                    <input class="js-input hidden" type="text" name="sort[]" value="{{ $item->sort }}">
+                                    <span>{{ $item->sort }}</span>
                                 </td>
                                 <td class="hidden"></td>
                                 <td class="text-center">
@@ -80,7 +78,7 @@
                                         <button class="btn btn-xs btn-default js-edit" type="button" data-toggle="tooltip" title="Редактировать">
                                             <i class="fa fa-pencil"></i>
                                         </button>
-                                        <button class="btn btn-xs btn-default js-remove" type="button" data-toggle="tooltip" title="Удалить">
+                                        <button class="btn btn-xs btn-default js-swal-confirm" type="button" data-toggle="tooltip" title="Удалить">
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </div>
@@ -99,8 +97,11 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('public/js/admin/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('public/js/admin/base_tables_datatables.js')}}"></script>
+    <script src="{{ asset('public/js/admin/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('public/js/admin/es6-promise.auto.min.js') }}"></script>
+    <script src="{{ asset('public/js/admin/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('public/js/admin/base_tables_datatables.js') }}"></script>
+    <script src="{{ asset('public/js/admin/base_ui_activity.js') }}"></script>
     <script>
         $(document).ready(function() {
             if ($('#DataTables_Table_0_filter').length) {
@@ -117,11 +118,11 @@
                     $('#DataTables_Table_0_wrapper').find('.col-sm-6 .menu-buttons').prepend('<button class="btn btn-success push-5-r push-10 js-save-button" type="button"><i class="fa fa-check" style="margin-right: 5px;"></i>Сохранить</button>')
                 }
                 if ($('.js-dataTable-full tbody').find('.dataTables_empty').length) {
-                    $('.js-dataTable-full tbody').append('<tr><td class="text-center item-id">1<input type="hidden" name="id[]" value="1"></td><td class="font-w600"><input class="js-input" type="text" name="title[]"></td><td><!--<select class="js-input" name="parent[]"><option></option></select>--></td><td><input class="js-input" type="text" name="sort[]"></td><td class="hidden"></td><td class="text-center"><div class="btn-group"><button class="btn btn-xs btn-default js-edit" type="button" data-toggle="tooltip" title="Редактировать"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default js-remove" type="button" data-toggle="tooltip" title="Удалить"><i class="fa fa-times"></i></button></div></td></tr>');
+                    $('.js-dataTable-full tbody').append('<tr><td class="text-center item-id">1<input type="hidden" name="id[]" value="1"></td><td class="font-w600"><input class="js-input" type="text" name="title[]"></td><td></td><td><input class="js-input" type="text" name="sort[]"></td><td class="hidden"></td><td class="text-center"><div class="btn-group"><button class="btn btn-xs btn-default js-edit" type="button" data-toggle="tooltip" title="Редактировать"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default js-swal-confirm" type="button" data-toggle="tooltip" title="Удалить"><i class="fa fa-times"></i></button></div></td></tr>');
                     $('.js-dataTable-full tbody').find('.dataTables_empty').closest('tr').remove();
                 } else if ($('.js-dataTable-full tbody').find('tr').length) {
                     var id = parseInt($('.js-dataTable-full tbody tr').last().find('.item-id').text()) + 1;
-                    $('.js-dataTable-full tbody').append('<tr><td class="text-center item-id">' + id + '<input type="hidden" name="id[]" value="' + id + '"></td><td class="font-w600"><input class="js-input" type="text" name="title[]"></td><td><!--<select class="js-input" name="parent[]"><option></option></select>--></td><td><input class="js-input" type="text" name="sort[]"></td><td class="hidden"></td><td class="text-center"><div class="btn-group"><button class="btn btn-xs btn-default js-edit" type="button" data-toggle="tooltip" title="Редактировать"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default js-remove" type="button" data-toggle="tooltip" title="Удалить"><i class="fa fa-times"></i></button></div></td></tr>');
+                    $('.js-dataTable-full tbody').append('<tr><td class="text-center item-id">' + id + '<input type="hidden" name="id[]" value="' + id + '"></td><td class="font-w600"><input class="js-input" type="text" name="title[]"></td><td></td><td><input class="js-input" type="text" name="sort[]"></td><td class="hidden"></td><td class="text-center"><div class="btn-group"><button class="btn btn-xs btn-default js-edit" type="button" data-toggle="tooltip" title="Редактировать"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default js-swal-confirm" type="button" data-toggle="tooltip" title="Удалить"><i class="fa fa-times"></i></button></div></td></tr>');
                 }
             });
 
@@ -142,6 +143,11 @@
                $(this).closest('tr').find('.js-input').removeClass('hidden');
                $(this).closest('tr').find('span').addClass('hidden');
             });
+
+            $(document).on('click', '.js-swal-confirm', function() {
+                $(this).closest('tr').addClass('js-menu-item');
+            });
+
         });
     </script>
 @endsection

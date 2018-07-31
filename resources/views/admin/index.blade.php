@@ -26,6 +26,7 @@
 
     @if (substr(strrchr(url()->current(), "/"), 1) == 'menu')
         <link rel="stylesheet" href="{{ asset('public/css/admin/jquery.dataTables.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/css/admin/sweetalert2.min.css') }}">
     @endif
 
     <!-- Bootstrap and OneUI CSS framework -->
@@ -208,6 +209,11 @@
         @yield('scripts')
 
         <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             jQuery(function () {
                 // Init page helpers (Slick Slider plugin)
                 App.initHelpers('slick');
