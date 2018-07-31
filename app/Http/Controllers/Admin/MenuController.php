@@ -12,7 +12,6 @@ class MenuController extends Controller
     /**
      * Display Current Menu.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -34,14 +33,21 @@ class MenuController extends Controller
     {
         foreach ($request->id as $key => $id)
         {
-            $item = Menu::updateOrCreate(
-                ['id' => $id],
-                [
-                    'title' => $request->title[$key],
-                    'parent_id' => $request->parent[$key],
-                    'sort' => $request->sort[$key]
-                ]
-            );
+            if ($request->title[$key])
+            {
+                $item = Menu::updateOrCreate(
+                    ['id' => $id],
+                    [
+                        'title' => $request->title[$key],
+                        'parent_id' => $request->parent[$key],
+                        'sort' => $request->sort[$key]
+                    ]
+                );
+            }
+            else
+            {
+                return redirect()->route('admin.menu')->withErrors('Заголовок обязателен для заполнения!');
+            }
         }
         return redirect()->route('admin.menu')->with('status', 'Данные сохранены.');
     }
