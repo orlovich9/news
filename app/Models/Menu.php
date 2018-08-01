@@ -41,7 +41,7 @@ class Menu extends Model
      */
     public function getMenuItems()
     {
-        $items = self::all();
+        $items = self::all()->sortBy('sort');
         $arTitles = [];
         $arParents = [];
 

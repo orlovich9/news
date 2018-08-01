@@ -16,4 +16,15 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/admin';
+
+    /**
+     * Show authorization form
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    /*public function show()
+    {
+        var_dump(312);
+        die();
+        return view('admin.login');
+    }*/
 }

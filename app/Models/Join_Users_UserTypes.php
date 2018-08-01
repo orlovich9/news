@@ -12,4 +12,13 @@ class Join_Users_UserTypes extends Model
      * @var string
      */
     protected $table = 'join_users_user_types';
+
+    /**
+     * Get user type
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userType()
+    {
+        return $this->belongsTo('App\Models\UsersTypes', 'user_type');
+    }
 }

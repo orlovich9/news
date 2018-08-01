@@ -18,13 +18,19 @@ Route::get('profile/{id}', 'UserProfile@show')->name('profile')->middleware('is_
 Route::post('profile/{id}', 'UserProfile@update')->middleware('throttle:5');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::get('/', 'MainController@show')->middleware('is_auth')->name('admin.main');
+
     Route::post('login', 'Auth\LoginController@login')->name('admin.login');
-    Route::get('lock', 'MainController@showLock')->name('admin.lock')->middleware('lock');
-    Route::get('menu', 'MenuController@show')->name('admin.menu');
-    Route::post('menu', 'MenuController@createOrUpdateMenu');
-    Route::post('menu-delete', 'MenuController@deleteMenuItem');
-    Route::get('users', 'UsersController@show')->name('admin.users');
+
+    Route::group(['middleware' => 'is_admin'], function(){
+        Route::get('/', 'MainController@show')->name('admin.main');
+        Route::get('login', 'Auth\LoginController@login');
+        Route::get('lock', 'MainController@showLock')->name('admin.lock')->middleware('lock');
+        Route::get('menu', 'MenuController@show')->name('admin.menu');
+        Route::post('menu', 'MenuController@createOrUpdateMenu');
+        Route::post('menu-delete', 'MenuController@deleteMenuItem');
+        Route::get('users', 'UsersController@show')->name('admin.users');
+        Route::post('users', 'UsersController@show');
+    });
 });
 
 Auth::routes();

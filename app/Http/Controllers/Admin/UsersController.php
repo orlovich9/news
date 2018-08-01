@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\User;
+use App\Models\UsersTypes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,6 +16,9 @@ class UsersController extends Controller
      */
     public function show()
     {
-        return view('admin.index');
+        $arUsers = User::with('getUserTypes.userType')->get()->toArray();
+        $arUserTypes = UsersTypes::all()->toArray();
+
+        return view('admin.users', ['arUsers' => $arUsers, 'arUserTypes' => $arUserTypes]);
     }
 }
