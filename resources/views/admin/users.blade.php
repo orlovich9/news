@@ -87,7 +87,7 @@
     <script src="{{ asset('public/js/admin/base_ui_activity.js') }}"></script>
     <script>
         $(document).ready(function() {
-            
+
             $('#DataTables_Table_0_filter').append('<button class="btn btn-info push-5-r push-10 js-add-item-menu" type="button" style="margin-left: 15px; margin-bottom: 0!important;"><i class="fa fa-plus" style="margin-right: 6px;position: relative;top: 1px;"></i>Добавить пользователя</button>')
 
             $(document).on('click', '.js-add-item-menu', function() {
