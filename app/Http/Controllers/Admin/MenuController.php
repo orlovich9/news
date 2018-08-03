@@ -9,6 +9,13 @@ use App\Http\Controllers\Controller;
 
 class MenuController extends Controller
 {
+    public $menu;
+
+    public function __construct()
+    {
+        $this->menu = new Menu;
+    }
+
     /**
      * Display Current Menu.
      *
@@ -16,8 +23,7 @@ class MenuController extends Controller
      */
     public function show()
     {
-        $menu = new Menu;
-        $arItems = $menu->getMenuItems();
+        $arItems = $this->menu->getMenuItems();
 
         return view('admin.menu', $arItems);
     }
@@ -31,24 +37,8 @@ class MenuController extends Controller
      */
     public function createOrUpdateMenu(Menus $request)
     {
-        foreach ($request->id as $key => $id)
-        {
-            if ($request->title[$key])
-            {
-                $item = Menu::updateOrCreate(
-                    ['id' => $id],
-                    [
-                        'title' => $request->title[$key],
-                        'parent_id' => $request->parent[$key],
-                        'sort' => $request->sort[$key]
-                    ]
-                );
-            }
-            else
-            {
-                return redirect()->route('admin.menu')->withErrors('Заголовок обязателен для заполнения!');
-            }
-        }
+        $this->menu->createOrUpdateMenu($request);
+
         return redirect()->route('admin.menu')->with('status', 'Данные сохранены.');
     }
 
@@ -59,11 +49,7 @@ class MenuController extends Controller
      */
     public function deleteMenuItem(Request $request)
     {
-        if ($request->id)
-        {
-            $result = Menu::destroy($request->id);
-            return $result;
-        }
+       return $this->menu->deleteMenuItem($request);
     }
 
 }

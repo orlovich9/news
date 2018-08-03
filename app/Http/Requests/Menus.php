@@ -24,7 +24,7 @@ class Menus extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required'
+            'title.*' => 'required'
         ];
     }
 
@@ -37,7 +37,7 @@ class Menus extends FormRequest
     {
         return [
 
-            'required' => 'Заголовок обязателен для заполнения.'
+            'title.*.required' => 'Заголовок обязателен для заполнения.'
 
         ];
     }

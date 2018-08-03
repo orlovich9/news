@@ -12,4 +12,13 @@ class UsersTypes extends Model
      * @var string
      */
     protected $table = 'users_type';
+
+    /**
+     * Get all user types
+     * @return array
+     */
+    public function getAllUserTypes()
+    {
+        return self::all()->toArray();
+    }
 }

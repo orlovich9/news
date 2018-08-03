@@ -5,12 +5,12 @@
             <h3 class="block-title">Меню</h3>
         </div>
         @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @foreach ($errors->all() as $error)
                     <h3 class="font-w300 push-15">{{ $error }}</h3>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         @elseif (session('status'))
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -18,7 +18,7 @@
             </div>
         @endif
         <div class="block-content">
-            <form action="{{ route('admin.menu') }}" method="post" class="js-form-menu">
+            <form action="{{ route('admin.menu') }}" method="post" class="js-form">
                 @csrf
                 <table class="table table-bordered table-striped js-dataTable-full" style="width: 100%;">
                     <thead>
@@ -135,7 +135,7 @@
             });
 
             $(document).on('click', '.js-save-button', function() {
-                $('.js-form-menu').trigger('submit');
+                $('.js-form').trigger('submit');
             });
 
             $(document).on('click', '.js-delete-button', function() {
@@ -147,7 +147,7 @@
             });
 
             $(document).on('click', '.js-swal-confirm', function() {
-                $(this).closest('tr').addClass('js-menu-item');
+                $(this).closest('tr').addClass('js-delete-item');
             });
 
         });

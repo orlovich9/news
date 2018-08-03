@@ -62,15 +62,14 @@ var BaseUIActivity = function() {
             }).then(function(result){
                 if (result.value) {
                     var data = {};
-                    data.id = $('.js-menu-item').data('id');
+                    data.id = $('.js-delete-item').data('id');
                     $.ajax({
-                        url: '../admin/menu-delete',
+                        url: $('.js-form').attr('action') + '-delete',
                         type: "POST",
                         data: data,
                         success: function(response){
-                            console.log(response);
-                            if (response == '1') {
-                                $('.js-menu-item').remove();
+                            if (response == 1) {
+                                $('.js-delete-item').remove();
                                 swal('Запись удалена!', '', 'success');
                             } else {
                                 swal("При удалении произошла ошибка!", "Попробуйте ещё раз", "error");

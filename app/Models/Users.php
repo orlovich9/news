@@ -1,15 +1,19 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Join_Users_UserTypes;
+use Illuminate\Database\Eloquent\Model;
+use Models\Join_Users_UserTypes;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Users extends Model
 {
-    use Notifiable;
+    /**
+     * Table.
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -21,31 +25,15 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * Get user types
-     */
-    public function getUserTypes()
-    {
-        return $this->hasMany('App\Models\Join_Users_UserTypes');
-    }
-
-    /**
      * Update or create user info
      * @param $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateOrCreate($request)
+    public function updateOrCreate($arRequest)
     {
-        $arRequest = $request->all();
-
+        echo "<pre>";
+        print_r($arRequest);
+        die();
         foreach ($arRequest['id'] as $key => $id)
         {
             try {
@@ -100,7 +88,6 @@ class User extends Authenticatable
         {
             Join_Users_UserTypes::where('user_id', $request->id)->delete();
             $result = self::destroy($request->id);
-
             return $result;
         }
     }

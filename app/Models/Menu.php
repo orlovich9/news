@@ -71,4 +71,42 @@ class Menu extends Model
         return ['items' => $items, 'parents' => $arTitles, 'parent_title' => $arParents];
     }
 
+    /**
+     * Create or Update Menu items.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createOrUpdateMenu($request)
+    {
+        foreach ($request->id as $key => $id)
+        {
+            try {
+                self::updateOrCreate(
+                    ['id' => $id],
+                    [
+                        'title' => $request->title[$key],
+                        'parent_id' => !empty($request->parent[$key]) ? $request->parent[$key] : null,
+                        'sort' => !empty($request->sort[$key]) ? $request->sort[$key] : null
+                    ]
+                );
+            } catch (Exception $e) {
+                return redirect()->route('admin.menu')->withErrors($e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Delete Menu Item
+     * @param Request $request
+     * @return string
+     */
+    public function deleteMenuItem($request)
+    {
+        if ($request->id)
+        {
+            $result = self::destroy($request->id);
+            return $result;
+        }
+    }
 }

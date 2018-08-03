@@ -14,6 +14,17 @@ class Join_Users_UserTypes extends Model
     protected $table = 'join_users_user_types';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id', 'user_type'
+    ];
+
+    public $timestamps = false;
+
+    /**
      * Get user type
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
