@@ -22,16 +22,14 @@ class IsAdmin
             return response(view('admin.login'));
         }
 
-        $user_types = User::where('id',Auth::id())->first()->getUserTypes;
+        $userTypes = User::where('id',Auth::id())->first()->getUserTypes;
         $arUserTypes = [];
 
-        foreach ($user_types as $type)
-        {
-            $arUserTypes[] = $type->user_type;
+        foreach ($userTypes as $type) {
+            $arUserTypes[] = $type->id;
         }
 
-        if (!in_array($this->getAdminUserType(), $arUserTypes))
-        {
+        if (!in_array($this->getAdminUserType(), $arUserTypes)) {
             return redirect()->route('main');
         }
 

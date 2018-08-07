@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Models\Join_Users_UserTypes;
+use App\Models\UsersTypes;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,11 +30,12 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get user types
+     * Join users with user_types
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function getUserTypes()
     {
-        return $this->hasMany('App\Models\Join_Users_UserTypes');
+        return $this->belongsToMany('App\Models\UsersTypes', 'join_users_user_types', 'user_id', 'user_type');
     }
 
     /**
@@ -42,49 +43,27 @@ class User extends Authenticatable
      * @param $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateOrCreate($request)
+    public function updateOrCreate($arRequest)
     {
-        $arRequest = $request->all();
+        foreach ($arRequest['id'] as $key => $id) {
+            if (!empty($arRequest['login'][$key])) {
+                $user = self::updateOrCreate(
+                    ['id' => $id],
+                    [
+                        'name' => $arRequest['name'][$key],
+                        'surname' => $arRequest['surname'][$key],
+                        'login' => $arRequest['login'][$key],
+                        'email' => $arRequest['email'][$key],
+                        'password' => Hash::make($arRequest['password'][$key])
+                    ]
+                );
+            }
 
-        foreach ($arRequest['id'] as $key => $id)
-        {
-            try {
-                if (!empty($arRequest['login'][$key]))
-                {
-                    $user = self::updateOrCreate(
-                        ['id' => $id],
-                        [
-                            'name' => $arRequest['name'][$key],
-                            'surname' => $arRequest['surname'][$key],
-                            'login' => $arRequest['login'][$key],
-                            'email' => $arRequest['email'][$key],
-                            'password' => Hash::make($arRequest['password'][$key])
-                        ]
-                    );
+            foreach ($arRequest['type'] as $key => $arTypes) {
+                if ($key == $id) {
+                    $user = self::find(!empty($user->id) ? $user->id : $id);
+                    $user->getUserTypes()->sync($arTypes);
                 }
-                else
-                {
-                    Join_Users_UserTypes::where('user_id', $id)->delete();
-                }
-
-                foreach ($arRequest['type'] as $key => $arTypes)
-                {
-                    if ($key == $id)
-                    {
-                        foreach ($arTypes as $type)
-                        {
-                            Join_Users_UserTypes::updateOrCreate(
-                                ['user_id' => !empty($user->id) ? $user->id : $id, 'user_type' => $type],
-                                [
-                                    'user_id' => !empty($user->id) ? $user->id : $id,
-                                    'user_type' => $type
-                                ]
-                            );
-                        }
-                    }
-                }
-            } catch (Exception $e) {
-                return redirect()->route('admin.menu')->withErrors($e->getMessage());
             }
         }
     }
@@ -96,9 +75,7 @@ class User extends Authenticatable
      */
     public function deleteUser($request)
     {
-        if ($request->id)
-        {
-            Join_Users_UserTypes::where('user_id', $request->id)->delete();
+        if ($request->id) {
             $result = self::destroy($request->id);
 
             return $result;
@@ -106,11 +83,37 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all users
+     * Get all users info
      * @return array
      */
     public function getAllUsersInfo()
     {
-        return self::with('getUserTypes.userType')->get()->toArray();
+        $users = self::all();
+        $arUsers = [];
+
+        foreach ($users as $user) {
+            $arUserTypes = $user->getUserTypes;
+            if (!$arUserTypes->isEmpty()) {
+                foreach ($arUserTypes as $type) {
+                    if (!array_key_exists($type->pivot->pivotParent->id, $arUsers)) {
+                        $arUsers[$type->pivot->pivotParent->id]['name'] = $type->pivot->pivotParent->name;
+                        $arUsers[$type->pivot->pivotParent->id]['surname'] = $type->pivot->pivotParent->surname;
+                        $arUsers[$type->pivot->pivotParent->id]['login'] = $type->pivot->pivotParent->login;
+                        $arUsers[$type->pivot->pivotParent->id]['email'] = $type->pivot->pivotParent->email;
+                    }
+
+                    $arUsers[$type->pivot->pivotParent->id]['get_user_types'][]['user_type'] = $type->type_name;
+
+                }
+            } else {
+                $arUsers[$user->id]['name'] = $user->name;
+                $arUsers[$user->id]['surname'] = $user->surname;
+                $arUsers[$user->id]['login'] = $user->login;
+                $arUsers[$user->id]['email'] = $user->email;
+                $arUsers[$user->id]['get_user_types'][]['user_type'] = false;
+            }
+        }
+
+        return $arUsers;
     }
 }

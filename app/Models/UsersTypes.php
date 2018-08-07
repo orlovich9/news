@@ -21,4 +21,13 @@ class UsersTypes extends Model
     {
         return self::all()->toArray();
     }
+
+    /**
+     * Join user_types with users
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'join_users_user_types', 'user_type', 'user_id');
+    }
 }

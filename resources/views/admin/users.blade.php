@@ -36,9 +36,9 @@
                     </thead>
                     <tbody>
                         @if (!empty($arUsers) && !empty($arUserTypes))
-                            @foreach ($arUsers as $arUser)
-                                <tr data-id="{{ $arUser['id'] }}">
-                                    <td class="text-center item-id">{{ $arUser['id'] }}</td>
+                            @foreach ($arUsers as $id => $arUser)
+                                <tr data-id="{{ $id }}">
+                                    <td class="text-center item-id">{{ $id }}</td>
                                     <td class="font-w600">
                                         <span>{{ $arUser['name'] }}</span>
                                     </td>
@@ -54,7 +54,7 @@
                                     <td class="font-w600"></td>
                                     <td class="js-user-types">
                                         @foreach ($arUser['get_user_types'] as $arType)
-                                            <span style="display: block;">{{ !empty($arType['user_type']) ?  $arType['user_type']['type_name'] : 'Зарегистрированный пользователь'}}</span>
+                                            <span style="display: block;">{{ !empty($arType['user_type']) ?  $arType['user_type'] : 'Зарегистрированный пользователь'}}</span>
                                         @endforeach
                                     </td>
                                     <td class="hidden"></td>
@@ -93,11 +93,11 @@
                     $('#DataTables_Table_0_filter').append('<button class="btn btn-success push-5-r push-10 js-save-button" type="button" style="margin-left: 15px; margin-bottom: 0!important;"><i class="fa fa-check"></i>Сохранить</button><button class="btn btn-danger push-5-r push-10 js-delete-button" type="button" style="margin: 0 0 0 10px!important;"><i class="fa fa-times"></i> Отменить</button>')
                 }
                 if ($('.js-dataTable-full tbody').find('.dataTables_empty').length) {
-                    $('.js-dataTable-full tbody').append('<tr class="js-user-item"><td class="text-center item-id">1<input type="hidden" name="id[]" value="1"></td><td class="font-w600"><input class="js-input" type="text" name="name[]"></td><td class="font-w600"><input class="js-input" type="text" name="surname[]"></td><td class="font-w600"><input class="js-input" type="text" name="login[]"></td><td class="font-w600"><input class="js-input" type="text" name="email[]"></td><td class="font-w600"><input class="js-input" type="password" name="password[]"></td><td><select class="js-input" name="type[1][]" multiple><option value="1">Контент-менеджер</option><option value="2">Оператор</option><option value="3">Администратор</option><option value="">Зарегистрированный пользователь</option></select></td><td class="hidden"></td><td class="text-center"><div class="btn-group"><button class="btn btn-xs btn-default js-edit" type="button" data-toggle="tooltip" title="Редактировать"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default js-swal-confirm" type="button" data-toggle="tooltip" title="Удалить"><i class="fa fa-times"></i></button></div></td></tr>');
+                    $('.js-dataTable-full tbody').append('<tr class="js-user-item"><td class="text-center item-id">1<input type="hidden" name="id[]" value="1"></td><td class="font-w600"><input class="js-input" type="text" name="name[]"></td><td class="font-w600"><input class="js-input" type="text" name="surname[]"></td><td class="font-w600"><input class="js-input" type="text" name="login[]"></td><td class="font-w600"><input class="js-input" type="text" name="email[]"></td><td class="font-w600"><input class="js-input" type="password" name="password[]"></td><td><select class="js-input" name="type[1][]" multiple><option value="1">Контент-менеджер</option><option value="2">Оператор</option><option value="3">Администратор</option></select></td><td class="hidden"></td><td class="text-center"><div class="btn-group"><button class="btn btn-xs btn-default js-edit" type="button" data-toggle="tooltip" title="Редактировать"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default js-swal-confirm" type="button" data-toggle="tooltip" title="Удалить"><i class="fa fa-times"></i></button></div></td></tr>');
                     $('.js-dataTable-full tbody').find('.dataTables_empty').closest('tr').remove();
                 } else if ($('.js-dataTable-full tbody').find('tr').length) {
                     var id = parseInt($('.js-dataTable-full tbody tr').last().find('.item-id').text()) + 1;
-                    $('.js-dataTable-full tbody').append('<tr class="js-user-item"><td class="text-center item-id">' + id + '<input type="hidden" name="id[]" value="' + id + '"></td><td class="font-w600"><input class="js-input" type="text" name="name[]"></td><td class="font-w600"><input class="js-input" type="text" name="surname[]"></td><td class="font-w600"><input class="js-input" type="text" name="login[]"></td><td class="font-w600"><input class="js-input" type="text" name="email[]"></td><td class="font-w600"><input class="js-input" type="password" name="password[]"></td><td><select class="js-input" name="type['+ id +'][]" multiple><option value="1">Контент-менеджер</option><option value="2">Оператор</option><option value="3">Администратор</option><option value="">Зарегистрированный пользователь</option></select></td><td class="hidden"></td><td class="text-center"><div class="btn-group"><button class="btn btn-xs btn-default js-edit" type="button" data-toggle="tooltip" title="Редактировать"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default js-swal-confirm" type="button" data-toggle="tooltip" title="Удалить"><i class="fa fa-times"></i></button></div></td></tr>');
+                    $('.js-dataTable-full tbody').append('<tr class="js-user-item"><td class="text-center item-id">' + id + '<input type="hidden" name="id[]" value="' + id + '"></td><td class="font-w600"><input class="js-input" type="text" name="name[]"></td><td class="font-w600"><input class="js-input" type="text" name="surname[]"></td><td class="font-w600"><input class="js-input" type="text" name="login[]"></td><td class="font-w600"><input class="js-input" type="text" name="email[]"></td><td class="font-w600"><input class="js-input" type="password" name="password[]"></td><td><select class="js-input" name="type['+ id +'][]" multiple><option value="1">Контент-менеджер</option><option value="2">Оператор</option><option value="3">Администратор</option></select></td><td class="hidden"></td><td class="text-center"><div class="btn-group"><button class="btn btn-xs btn-default js-edit" type="button" data-toggle="tooltip" title="Редактировать"><i class="fa fa-pencil"></i></button><button class="btn btn-xs btn-default js-swal-confirm" type="button" data-toggle="tooltip" title="Удалить"><i class="fa fa-times"></i></button></div></td></tr>');
                 }
             });
 
@@ -108,7 +108,7 @@
                 var id = $(this).closest('tr').data('id');
                 $(this).closest('tr').find('.js-user-types span').addClass('hidden');
                 if ($(this).closest('tr').find('.js-user-types .js-input').length == '') {
-                    $(this).closest('tr').find('.js-user-types').append('<input type="hidden" name="id[]" value="'+ id +'"><select class="js-input" name="type['+ id +'][]" multiple><option value="1">Контент-менеджер</option><option value="2">Оператор</option><option value="3">Администратор</option><option value="">Зарегистрированный пользователь</option></select>');
+                    $(this).closest('tr').find('.js-user-types').append('<input type="hidden" name="id[]" value="'+ id +'"><select class="js-input" name="type['+ id +'][]" multiple><option value="1">Контент-менеджер</option><option value="2">Оператор</option><option value="3">Администратор</option></select>');
                 }
             });
 

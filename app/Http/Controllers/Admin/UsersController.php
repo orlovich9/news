@@ -41,7 +41,11 @@ class UsersController extends Controller
      */
     public function createOrUpdateUsers(Users $request)
     {
-        $this->user->updateOrCreate($request);
+        try {
+            $this->user->updateOrCreate($request->all());
+        } catch (Exception $e) {
+            return redirect()->route('admin.menu')->withErrors($e->getMessage());
+        }
 
         return redirect()->route('admin.users');
     }

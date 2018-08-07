@@ -16,9 +16,9 @@ class CreateJoinUsersUsersType extends Migration
         Schema::create('join_users_user_types', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('user_type')->nullable();
-            $table->foreign('user_type')->references('id')->on('users_type');
+            $table->foreign('user_type')->references('id')->on('users_type')->onDelete('cascade');
             $table->unique(['user_id', 'user_type']);
         });
 
