@@ -45,24 +45,20 @@ class Menu extends Model
         $arTitles = [];
         $arParents = [];
 
-        foreach ($items as $item)
-        {
+        foreach ($items as $item) {
             $id = $item->id;
             $newItems = $items->where('id', '!=' , $id);
 
-            foreach ($newItems as $newItem)
-            {
+            foreach ($newItems as $newItem) {
                 $arTitles[$id][$newItem->id] = $newItem->title;
             }
 
-            if ($item->parent_id)
-            {
+            if ($item->parent_id) {
                 $newItems = $items->first(function($value, $key) use ($item) {
                     return $value->id == $item->parent_id;
                 });
 
-                if ($newItems)
-                {
+                if ($newItems) {
                     $arParents[$item->id] = [$newItems->id => $newItems->title];
                 }
             }
@@ -79,8 +75,7 @@ class Menu extends Model
      */
     public function createOrUpdateMenu($request)
     {
-        foreach ($request->id as $key => $id)
-        {
+        foreach ($request->id as $key => $id) {
             try {
                 self::updateOrCreate(
                     ['id' => $id],
@@ -103,8 +98,7 @@ class Menu extends Model
      */
     public function deleteMenuItem($request)
     {
-        if ($request->id)
-        {
+        if ($request->id) {
             $result = self::destroy($request->id);
             return $result;
         }

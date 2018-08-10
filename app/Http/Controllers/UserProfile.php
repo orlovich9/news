@@ -17,14 +17,14 @@ class UserProfile extends Controller
      */
     public function show($id)
     {
-        $user = User::where('id', $id)->get();
+        $user = User::find($id);
 
         $arUserInfo = [
-            "name" => $user->first()->name,
-            "surname" => $user->first()->surname,
-            "login" => $user->first()->login,
-            "avatar" => $user->first()->avatar_path ? asset('public/storage/'.$user->first()->avatar_path) : '',
-            "email" => $user->first()->email
+            "name" => $user->name,
+            "surname" => $user->surname,
+            "login" => $user->login,
+            "avatar" => $user->avatar_path ? asset('public/storage/'.$user->avatar_path) : '',
+            "email" => $user->email
         ];
 
         return view('profile', ['user_info' => $arUserInfo]);
@@ -40,28 +40,23 @@ class UserProfile extends Controller
     {
         $arUpdateData = [];
 
-        if ($request->name)
-        {
+        if ($request->name) {
             $arUpdateData['name'] = $request->name;
         }
 
-        if ($request->surname)
-        {
+        if ($request->surname) {
             $arUpdateData['surname'] = $request->surname;
         }
 
-        if ($request->login)
-        {
+        if ($request->login) {
             $arUpdateData['login'] = $request->login;
         }
 
-        if ($request->email)
-        {
+        if ($request->email) {
             $arUpdateData['email'] = $request->email;
         }
 
-        if ($request->avatar)
-        {
+        if ($request->avatar) {
             $arUpdateData['avatar_path'] = $request->avatar->store('uploads/avatar', 'public');
         }
 

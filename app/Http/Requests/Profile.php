@@ -27,37 +27,7 @@ class Profile extends FormRequest
             'name' => 'required|string|max:32',
             'login' => 'required|string|max:32|unique:users',
             'avatar' => 'image',
-            'email' => 'required|string|email|max:32|unique:users',
-        ];
-    }
-
-    /**
-     * Get custom messages for validator errors.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-
-            'required'             => 'Поле :attribute обязательно для заполнения.',
-            'string'               => 'Поле :attribute должно быть строкой.',
-            'min'                  => [
-                'string'  => 'Поле :attribute должно иметь не менее :min символов.'
-            ],
-            'max'                  => [
-                'string'  => 'Поле :attribute должно иметь не более :max символов.'
-            ],
-            'email'                => 'Поле :attribute должно быть корректным электронным адресом.',
-            'unique'               => 'Уже существует пользователь с таким полем :attribute.',
-            'image'                => ':attribute должна быть изображением в формате JPEG, PNG, BMP, GIF или SVG.',
-            'attributes' => [
-                'name' => 'Имя',
-                'email' => 'Email',
-                'avatar' => 'Аватарка',
-                'login' => 'Логин',
-            ],
-
+            'email' => 'required|string|email|max:50|unique:users',
         ];
     }
 }

@@ -16,8 +16,7 @@ class IsCurrentUser
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::id() != $request->id)
-        {
+        if (Auth::id() != $request->id) {
             return redirect('/');
         }
 

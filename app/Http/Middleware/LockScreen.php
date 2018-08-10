@@ -16,8 +16,7 @@ class LockScreen
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             session(['login' => Auth::user()->login, 'avatar_path' => Auth::user()->avatar_path]);
         }
 
