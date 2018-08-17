@@ -17,6 +17,7 @@ class CreateTypeUsers extends Migration
         {
             $table->increments('id');
             $table->string('type_name');
+            $table->string('slug')->nullable()->index();
             $table->timestamps();
         });
     }

@@ -21,8 +21,8 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('success', '\App\Http\Controllers\Auth\RegisterController@success')->middleware('success');
 
 /*Profile page*/
-Route::get('profile/{id}', 'UserProfile@show')->name('profile')->middleware('is_current_user');
-Route::post('profile/{id}', 'UserProfile@update')->middleware('throttle:5');
+Route::get('profile/{id}', 'UserProfile@show')->name('profile');
+Route::post('profile', 'UserProfile@update')->middleware('throttle:5')->name('update_profile');
 
 /*Admin folder*/
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
@@ -33,18 +33,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     Route::group(['middleware' => 'is_admin'], function() {
 
-        /*Admin main page*/
+        /*Admin folder main page*/
         Route::get('/', 'MainController@show')->name('admin.main');
 
-        /*Admin lockscreen*/
+        /*Admin folder lockscreen*/
         Route::get('lock', 'MainController@showLock')->name('admin.lock')->middleware('lock');
 
-        /*Admin menu create page*/
+        /*Admin folder menu creation page*/
         Route::get('menu', 'MenuController@show')->name('admin.menu');
         Route::post('menu', 'MenuController@createOrUpdateMenu');
         Route::post('menu-delete', 'MenuController@deleteMenuItem');
 
-        /*Admin users page*/
+        /*Admin folder users page*/
         Route::get('users', 'UsersController@show')->name('admin.users');
         Route::post('users', 'UsersController@createOrUpdateUsers');
         Route::post('users-delete', 'UsersController@delete');

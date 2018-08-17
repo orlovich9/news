@@ -25,22 +25,13 @@ class IsAdmin
         $arUserTypes = [];
 
         foreach ($userTypes as $type) {
-            $arUserTypes[] = $type->id;
+            $arUserTypes[] = $type->slug;
         }
 
-        if (!in_array($this->getAdminUserType(), $arUserTypes)) {
+        if (!in_array('admin', $arUserTypes)) {
             return redirect()->route('main');
         }
 
         return $next($request);
-    }
-
-    /**
-     * Get user type for success login in admin folder
-     * @return int
-     */
-    public function getAdminUserType()
-    {
-        return 3;
     }
 }

@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Profile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UserProfile extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('is_current_user')->only('show');
+    }
 
     /**
      * Show user profile
@@ -36,7 +41,7 @@ class UserProfile extends Controller
      * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Profile $request, $id)
+    public function update(Profile $request)
     {
         $arUpdateData = [];
 
@@ -60,7 +65,7 @@ class UserProfile extends Controller
             $arUpdateData['avatar_path'] = $request->avatar->store('uploads/avatar', 'public');
         }
 
-        return User::where('id', $id)->update($arUpdateData);
+        return User::where('id', Auth::id())->update($arUpdateData);
 
     }
 

@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="row login-form">
-                            <form method="POST" action="{{ route('profile',['id' => Auth::id()]) }}" aria-label="Профиль" id="profile_form" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('update_profile') }}" aria-label="Профиль" id="profile_form" enctype="multipart/form-data">
                                 @csrf
                                 <div class="col-lg-6 js">
                                     <input type="file" name="avatar" id="file" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
